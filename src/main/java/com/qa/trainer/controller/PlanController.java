@@ -1,13 +1,10 @@
 package com.qa.trainer.controller;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -29,9 +26,16 @@ public class PlanController {
 		return svc.getPlan(trainerId, planId);
 	}
 	
-	@PostMapping("/createPlan/{planId}/{roomNumber}/{traineeGroup}/{topic}")
-	public Plan createPlan(@PathVariable Long planId, @PathVariable int roomNumber, @PathVariable String day, @PathVariable String month, @PathVariable String year, @PathVariable String traineeGroup, @PathVariable String topic) {
-		return svc.createPlan(planId, day, month, year, roomNumber, traineeGroup, topic);
+	@PostMapping("/createPlan")
+	public String createPlan(@RequestBody Plan plan) {
+		String dateRes= svc.checkDate(plan);
+		if(dateRes.equals("Valid")) {
+			String planRes = checkPlan(plan, getAllPlans());
+			if(planRes.equals(Constants.VALID_MESSAGE)){
+				//save plan
+				//add plan to trainer
+			}else return planRes;			
+		}else return dateRes;
 	}
 	
 	@PostMapping("/updatePlan")

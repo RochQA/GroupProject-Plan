@@ -2,12 +2,15 @@ package com.qa.trainer.service;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Calendar;
 import java.util.Date;
-import java.time.Year; 
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.qa.trainer.entities.Plan;
@@ -25,23 +28,33 @@ public class PlanService {
 		this.repo = repo; 
 //		this.plan = plan;
 	}
+	
+	public String checkDateInput(Plan plan) {
+		if(!(plan.getYear() >= Calendar.getInstance().get(Calendar.YEAR) && (plan.getYear() < Calendar.YEAR + 2))) {
+			return "Year not valid!";
+		} else if(!(plan.getMonth() <= 12)) {
+			return "Month " + plan.getMonth() + " does not exist";
+		} else if(!(plan.getDay() <= YearMonth.of(plan.getYear(), plan.getMonth()).lengthOfMonth())) {
+			return plan.getDay() + " is not a day in the month " + plan.getMonth();
+		}
+		return "Valid";
+	}
 
-	public Plan createPlan(Long planId, String day, String month, String year, int roomNumber, String traineeGroup, String topic) {
-		Plan plan = new Plan();		// foreach loop through planId's and see if roomNumber has been taken
-		
-		plan.setPlanId(planId);
-		plan.setDay(day);
-		plan.setMonth(month);
-		if(Integer.parseInt(year) >= Integer.parseInt(Year.now().toString())) {
-			plan.setYear(year);
+	public String checkDate(Plan plan) {
+	// foreach loop through planId's and see if roomNumber has been taken
+		if(!(plan.getMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1)) {
+			return "Month not valid!";
+		}else if(!(plan.getDay() >= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1)) {
+			return "Day not valid!";
 		}
 		else {
-			plan.setYear(Year.now().toString());
+			return "Valid";
 		}
-		plan.setRoomNumber(roomNumber);
-		plan.setTraineeGroup(traineeGroup);
-		plan.setTopic(topic);
-		return repo.save(plan);
+	}
+	
+	public Boolean checkRoom() {
+		
+		return true;
 	}
 	
 	public Optional<Plan> getPlan(Long trainerId, Long planId) {
@@ -62,4 +75,4 @@ public class PlanService {
 		return "Plan in room " + plan.getRoomNumber() + " with group " + plan.getTraineeGroup() + " doing " + plan.getTopic() + " has been removed from planner"; 
 	}
 
-}  
+}   
