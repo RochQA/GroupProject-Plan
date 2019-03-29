@@ -2,6 +2,8 @@ package com.qa.trainer.service;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.time.Year;
@@ -21,7 +23,6 @@ public class PlanService {
 	
 	
 	private PlanRepository repo;	
-	private Plan plan;
 	 
 	@Autowired
 	public PlanService(PlanRepository repo) {
@@ -29,32 +30,35 @@ public class PlanService {
 //		this.plan = plan;
 	}
 	
-	public String checkDateInput(Plan plan) {
-		if(!(plan.getYear() >= Calendar.getInstance().get(Calendar.YEAR) && (plan.getYear() < Calendar.YEAR + 2))) {
+	public Plan createPlan() {
+		
+		if(checkDate(plan).equals("Valid")) {
+			
+		}
+		return null;
+	}
+	
+	public String checkDate(Plan plan) {
+		if(!(plan.getYear() >= Calendar.getInstance().get(Calendar.YEAR) && !(plan.getYear() < Calendar.YEAR + 2))) {
 			return "Year not valid!";
-		} else if(!(plan.getMonth() <= 12)) {
-			return "Month " + plan.getMonth() + " does not exist";
-		} else if(!(plan.getDay() <= YearMonth.of(plan.getYear(), plan.getMonth()).lengthOfMonth())) {
-			return plan.getDay() + " is not a day in the month " + plan.getMonth();
+		} else if(!(plan.getMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1) || !(plan.getMonth() <= 12)) {
+			return "Month not valid!";
+		} else if(!(plan.getDay() <= YearMonth.of(plan.getYear(), plan.getMonth()).lengthOfMonth() || !(plan.getDay() >= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1))) {
+			return "Day not valid!";
 		}
 		return "Valid";
 	}
-
-	public String checkDate(Plan plan) {
-	// foreach loop through planId's and see if roomNumber has been taken
-		if(!(plan.getMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1)) {
-			return "Month not valid!";
-		}else if(!(plan.getDay() >= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1)) {
-			return "Day not valid!";
-		}
-		else {
-			return "Valid";
-		}
-	}
 	
-	public Boolean checkRoom() {
+	public String checkRoom(Plan plan, List<Plan> plans) {
 		
-		return true;
+//		List<Plan> bookedPlans = new ArrayList<>();
+		List<Plan> bookedPlans =  plans.stream().filter(bookedPlan -> plan.getDay() == bookedPlan.getDay() && plan.getMonth() == bookedPlan.getMonth() && plan.getYear() == bookedPlan.getYear()).findAny().orElse(null);				
+		if(bookedPlans!= null) {
+			
+			return "Room is already booked for this date";
+		}
+		
+		return "Valid";
 	}
 	
 	public Optional<Plan> getPlan(Long trainerId, Long planId) {
@@ -67,6 +71,10 @@ public class PlanService {
 		plan.setTraineeGroup(traineeGroup);
 		plan.setTopic(topic);
 		return repo.save(plan);
+	}
+	
+	public List<Plan> getAllPlans() {
+		return repo.findAll();
 	}
 	
 	public String deletePlan(Long planId) {
