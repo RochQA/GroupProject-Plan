@@ -11,11 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.CONSTANTS;
-import com.qa.trainer.TrainerControllerApplication;
+import com.qa.trainer.PlanApplication;
 import com.qa.trainer.entities.Plan;
 import com.qa.trainer.repository.PlanRepository;
 
-@SpringBootTest(classes = TrainerControllerApplication.class)
+@SpringBootTest(classes = PlanApplication.class)
 public class PlanTest {
 	
     @Before

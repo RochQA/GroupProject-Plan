@@ -10,6 +10,7 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,6 @@ public class PlanService {
 //		this.plan = plan;
 	}
 	
-	public Plan createPlan() {
-		
-		if(checkDate(plan).equals("Valid")) {
-			
-		}
-		return null;
-	}
-	
 	public String checkDate(Plan plan) {
 		if(!(plan.getYear() >= Calendar.getInstance().get(Calendar.YEAR) && !(plan.getYear() < Calendar.YEAR + 2))) {
 			return "Year not valid!";
@@ -49,38 +42,48 @@ public class PlanService {
 		return "Valid";
 	}
 	
-	public String checkRoom(Plan plan, List<Plan> plans) {
-		
-//		List<Plan> bookedPlans = new ArrayList<>();
-		List<Plan> bookedPlans =  plans.stream().filter(bookedPlan -> plan.getDay() == bookedPlan.getDay() && plan.getMonth() == bookedPlan.getMonth() && plan.getYear() == bookedPlan.getYear()).findAny().orElse(null);				
-		if(bookedPlans!= null) {
-			
+	public String checkAvailible(Plan plan, List<Plan> plans) {
+		List<Plan> bookedPlans =  plans.stream()
+											.filter(bookedPlan -> plan.getDay() == bookedPlan.getDay()
+											&& plan.getMonth() == bookedPlan.getMonth() 
+											&& (plan.getYear() == bookedPlan.getYear()))
+											.collect(Collectors.toList());			
+		if((bookedPlans.stream().map(bookedPlan-> bookedPlan.getRoomNumber()).collect(Collectors.toList()).contains(plan.getRoomNumber()))) {			
 			return "Room is already booked for this date";
-		}
-		
+		}else if((bookedPlans.stream().map(bookedPlan-> bookedPlan.getTrainerId()).collect(Collectors.toList()).contains(plan.getTrainerId()))) {			
+			return "Trainer is Busy on this date";
+		}		
 		return "Valid";
 	}
 	
-	public Optional<Plan> getPlan(Long trainerId, Long planId) {
-		return repo.findById(planId);
-	}
+// ---------ALL FOR CONTROLLER----------
 	
-	public Plan updatePlan(Long planId, int roomNumber, String traineeGroup, String topic) {
-		Plan plan = new Plan();
-		plan.setRoomNumber(roomNumber);
-		plan.setTraineeGroup(traineeGroup);
-		plan.setTopic(topic);
-		return repo.save(plan);
-	}
-	
-	public List<Plan> getAllPlans() {
-		return repo.findAll();
-	}
-	
-	public String deletePlan(Long planId) {
-		
-		repo.deleteById(planId);
-		return "Plan in room " + plan.getRoomNumber() + " with group " + plan.getTraineeGroup() + " doing " + plan.getTopic() + " has been removed from planner"; 
-	}
+//	public String createPlan(Plan plan) {
+//	String dateCheck = checkDate(plan);
+//	if(dateCheck.equals("Valid")) {
+//		
+//	}else return dateCheck;
+//}	
+//	public Optional<Plan> getPlan(Long trainerId, Long planId) {
+//		return repo.findById(planId);
+//	}
+//	
+//	public Plan updatePlan(Long planId, int roomNumber, String traineeGroup, String topic) {
+//		Plan plan = new Plan();
+//		plan.setRoomNumber(roomNumber);
+//		plan.setTraineeGroup(traineeGroup);
+//		plan.setTopic(topic);
+//		return repo.save(plan);
+//	}
+//	
+//	public List<Plan> getAllPlans() {
+//		return repo.findAll();
+//	}
+//	
+//	public String deletePlan(Long planId) {
+//		
+//		repo.deleteById(planId);
+//		return "Plan Deleted"; 
+//	}
 
 }   

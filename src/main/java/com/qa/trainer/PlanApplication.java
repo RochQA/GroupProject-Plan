@@ -2,12 +2,14 @@ package com.qa.trainer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-public class TrainerControllerApplication {
+@EnableEurekaClient
+public class PlanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TrainerControllerApplication.class, args);
+		SpringApplication.run(PlanApplication.class, args);
 	}
 
 }
