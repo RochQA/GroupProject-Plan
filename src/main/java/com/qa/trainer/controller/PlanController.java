@@ -21,25 +21,19 @@ import com.qa.trainer.service.PlanService;
 @EnableWebMvc
 public class PlanController {
 	
-	private PlanService svc;
+	private PlanService srvc;
 	private RestTemplateBuilder rest;
 	private EurekaClient client;
 	
-	public PlanController(PlanService svc) {
-		this.svc = svc;
+	public PlanController(PlanService srvc) {
+		this.srvc = srvc;
 	}
 	
 
 	
 	@PostMapping("/checkPlan")
 	public String checkPlan(@RequestBody Plan plan) {
-		String dateRes= svc.checkDate(plan);
-		if(dateRes.equals("Valid")) {
-			String planRes = svc.checkAvailible(plan, getAllPlans());
-			if(planRes.equals("Valid")){
-				return "Valid";
-			}else return planRes;			
-		}else return dateRes;
+		return srvc.checkValid(plan, getAllPlans());
 	}
 	
 	private List<Plan> getAllPlans() {

@@ -22,14 +22,16 @@ import com.qa.trainer.repository.PlanRepository;
 @Service
 public class PlanService {
 	
-	
-	private PlanRepository repo;	
-	 
-	@Autowired
-	public PlanService(PlanRepository repo) {
-		this.repo = repo; 
-//		this.plan = plan;
+	public String checkValid(Plan plan, List<Plan> plans) {
+		String dateRes= checkDate(plan);
+		if(dateRes.equals("Valid")) {
+			String planRes = checkAvailible(plan, plans);
+			if(planRes.equals("Valid")){
+				return "Valid";
+			}else return planRes;			
+		}else return dateRes;
 	}
+	
 	
 	public String checkDate(Plan plan) {
 		if(!(plan.getYear() >= Calendar.getInstance().get(Calendar.YEAR) && !(plan.getYear() < Calendar.YEAR + 2))) {
