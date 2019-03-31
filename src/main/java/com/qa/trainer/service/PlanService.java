@@ -1,5 +1,6 @@
 package com.qa.trainer.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -34,25 +35,30 @@ public class PlanService {
 	
 	
 	public String checkDate(Plan plan) {
-		if(!(plan.getYear() >= Calendar.getInstance().get(Calendar.YEAR) && !(plan.getYear() < Calendar.YEAR + 2))) {
-			return "Year not valid!";
-		} else if(!(plan.getMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1) || !(plan.getMonth() <= 12)) {
-			return "Month not valid!";
-		} else if(!(plan.getDay() <= YearMonth.of(plan.getYear(), plan.getMonth()).lengthOfMonth() || !(plan.getDay() >= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1))) {
-			return "Day not valid!";
-		}
-		return "Valid";
+		Date localDate = java.sql.Date.valueOf(LocalDate.now());
+		if(plan.getStartDate().before(localDate)) {
+			return "Date in past!";
+		}else if(plan.getStartDate().after(plan.getEndDate())) {
+			return "End date before start date!";		
+//		} else if(!(plan.getMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1) || !(plan.getMonth() <= 12)) {
+//			return "Month not valid!";
+//		} else if(!(plan.getDay() <= YearMonth.of(plan.getYear(), plan.getMonth()).lengthOfMonth() || !(plan.getDay() >= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1))) {
+//			return "Day not valid!";
+		}else return "Valid";
 	}
 	
 	public String checkAvailible(Plan plan, List<Plan> plans) {
+		Date startDate = plan.getStartDate();
+		Date endDate = plan.getEndDate();
 		List<Plan> bookedPlans =  plans.stream()
-											.filter(bookedPlan -> plan.getDay() == bookedPlan.getDay()
-											&& plan.getMonth() == bookedPlan.getMonth() 
-											&& (plan.getYear() == bookedPlan.getYear()))
-											.collect(Collectors.toList());			
+											.filter(bookedPlan -> 
+											(startDate.before(bookedPlan.getStartDate())&&endDate.after(bookedPlan.getStartDate()))
+											||(startDate.after(bookedPlan.getStartDate())&&startDate.before(bookedPlan.getEndDate()))
+											||(startDate.before(bookedPlan.getEndDate())&&endDate.after(bookedPlan.getEndDate()))
+											).collect(Collectors.toList());			
 		if((bookedPlans.stream().map(bookedPlan-> bookedPlan.getRoomNumber()).collect(Collectors.toList()).contains(plan.getRoomNumber()))) {			
 			return "Room is already booked for this date";
-		}else if((bookedPlans.stream().map(bookedPlan-> bookedPlan.getTrainerId()).collect(Collectors.toList()).contains(plan.getTrainerId()))) {			
+		}else if((bookedPlans.stream().map(bookedPlan-> bookedPlan.getTrainerName()).collect(Collectors.toList()).contains(plan.getTrainerName()))) {			
 			return "Trainer is Busy on this date";
 		}		
 		return "Valid";
