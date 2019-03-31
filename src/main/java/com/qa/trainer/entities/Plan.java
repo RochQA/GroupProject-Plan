@@ -11,60 +11,27 @@ import javax.persistence.Id;
 @Entity
 public class Plan {
 	
-	@Id
-	@GeneratedValue
-	private Long planId;
+
+	private Long Id;
 	
 	private String topic;
 	
+	private String trainerName; 
+	
 	private String traineeGroup;
 	
+	private Date startDate;
+	
+	private Date endDate;
+	
 	private int roomNumber;
-	
-	private Long trainerId;
-	
-	
-	private int day;
-	
-	private int month;
-	
-	private int year;
 
-
-
-
-
-
-	public int getDay() {
-		return day;
+	public Long getId() {
+		return Id;
 	}
 
-	public void setDay(int day) {
-		this.day = day;
-	}
-
-	public int getMonth() {
-		return month;
-	}
-
-	public void setMonth(int month) {
-		this.month = month;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public Long getPlanId() {
-		return planId;
-	}
-
-	public void setPlanId(Long planId) {
-		this.planId = planId;
+	public void setId(Long id) {
+		Id = id;
 	}
 
 	public String getTopic() {
@@ -75,12 +42,36 @@ public class Plan {
 		this.topic = topic;
 	}
 
+	public String getTrainerName() {
+		return trainerName;
+	}
+
+	public void setTrainerName(String trainerName) {
+		this.trainerName = trainerName;
+	}
+
 	public String getTraineeGroup() {
 		return traineeGroup;
 	}
 
 	public void setTraineeGroup(String traineeGroup) {
 		this.traineeGroup = traineeGroup;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public int getRoomNumber() {
@@ -90,15 +81,6 @@ public class Plan {
 	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-
-	public Long getTrainerId() {
-		return trainerId;
-	}
-
-	public void setTrainerId(Long trainerId) {
-		this.trainerId = trainerId;
-	}
-	
 	
 
 } 
