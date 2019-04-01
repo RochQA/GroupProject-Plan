@@ -1,4 +1,4 @@
-package com.example.demo.entitiesTests;
+package com.qa.plan.entitiesTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,12 +10,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.example.demo.CONSTANTS;
-import com.qa.trainer.PlanApplication;
-import com.qa.trainer.entities.Plan;
-import com.qa.trainer.repository.PlanRepository;
+import com.qa.plan.CONSTANTS;
+import com.qa.plan.PlanControllerApplication;
+import com.qa.plan.entities.Plan;
+import com.qa.plan.PlanControllerApplication;
+import com.qa.plan.repository.PlanRepository;
 
-@SpringBootTest(classes = PlanApplication.class)
+@SpringBootTest(classes = PlanControllerApplication.class)
 public class PlanTest {
 	
     @Before

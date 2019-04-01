@@ -1,4 +1,4 @@
-package com.qa.trainer.service;
+package com.qa.plan.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.qa.trainer.entities.Plan;
-import com.qa.trainer.repository.PlanRepository;
+import com.qa.plan.entities.Plan;
+import com.qa.plan.repository.PlanRepository;
 
 @Service
 public class PlanService {

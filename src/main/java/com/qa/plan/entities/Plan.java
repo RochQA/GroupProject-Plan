@@ -1,4 +1,4 @@
-package com.qa.trainer.entities;
+package com.qa.plan.entities;
 
 import java.time.ZonedDateTime;
 import java.util.Date;

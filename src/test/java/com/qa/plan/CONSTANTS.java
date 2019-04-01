@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.qa.plan;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -8,8 +8,7 @@ import java.util.Optional;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
-import com.qa.trainer.entities.Plan;
-import com.qa.trainer.entities.Trainer;
+import com.qa.plan.entities.Plan;
 
 public class CONSTANTS {
 	
@@ -21,14 +20,14 @@ public class CONSTANTS {
 		
 		
 		
-		public static final Trainer JORDAN = new Trainer(1L, "Jordan Harrison");
-		public static final Trainer CHRIS = new Trainer(2L, "Christoph Perrins");
-		public static final Trainer CHESTER = new Trainer(3L, "Chester Gardner");
-		
-		public static final List<Trainer> TRAINER_LIST = new ArrayList<Trainer>();
-		
-		public List<Trainer> getTrainerList() {
-			return TRAINER_LIST;
-		}
+//		public static final Trainer JORDAN = new Trainer(1L, "Jordan Harrison");
+//		public static final Trainer CHRIS = new Trainer(2L, "Christoph Perrins");
+//		public static final Trainer CHESTER = new Trainer(3L, "Chester Gardner");
+//		
+//		public static final List<Trainer> TRAINER_LIST = new ArrayList<Trainer>();
+//		
+//		public List<Trainer> getTrainerList() {
+//			return TRAINER_LIST;
+//		}
 
 }

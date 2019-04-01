@@ -1,4 +1,4 @@
-package com.qa.trainer.controller;
+package com.qa.plan.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.netflix.discovery.EurekaClient;
-import com.qa.trainer.entities.Plan;
-import com.qa.trainer.service.PlanService;
+import com.qa.plan.entities.Plan;
+import com.qa.plan.service.PlanService;
 
 
 

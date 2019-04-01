@@ -1,4 +1,4 @@
-package com.example.demo.RESTTests;
+package com.qa.plan.RESTTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,14 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.example.demo.CONSTANTS;
-import com.qa.trainer.PlanApplication;
-import com.qa.trainer.controller.PlanController;
-import com.qa.trainer.entities.Plan;
-import com.qa.trainer.service.PlanService;
+import com.qa.plan.CONSTANTS;
+import com.qa.plan.PlanControllerApplication;
+import com.qa.plan.controller.PlanController;
+import com.qa.plan.entities.Plan;
+import com.qa.plan.PlanControllerApplication;
+import com.qa.plan.service.PlanService;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest(classes = PlanApplication.class)
+@SpringBootTest(classes = PlanControllerApplication.class)
 public class PlanRestTest {
 	
 	@Autowired
@@ -55,8 +56,8 @@ public class PlanRestTest {
 //	@Test
 //	public void testGetPlan() {
 //		Optional<Plan> MOCK_OBJECT = new Plan();
-//		Mockito.when(svc.getPlan(testLong, testLong)).thenReturn(MOCK_OBJECT);
-//		assertEquals(MOCK_OBJECT, uCon.getPlan(testLong, testLong));
+//		Mockito.when(svc.getPlan(CONSTANTS.TEST_LONG, CONSTANTS.TEST_LONG)).thenReturn(CONSTANTS.MOCK_OPTIONAL_OBJECT);
+//		assertEquals(MOCK_OBJECT, uCon.getPlan(CONSTANTS.TEST_LONG, CONSTANTS.TEST_LONG));
 //	}
 //
 //	@Test

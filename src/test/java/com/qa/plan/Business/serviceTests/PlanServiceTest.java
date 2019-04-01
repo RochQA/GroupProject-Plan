@@ -1,4 +1,4 @@
-package com.example.demo.Business.serviceTests;
+package com.qa.plan.Business.serviceTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,15 +16,15 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.CONSTANTS;
-import com.qa.trainer.PlanApplication;
-import com.qa.trainer.entities.Plan;
-import com.qa.trainer.repository.PlanRepository;
-import com.qa.trainer.service.PlanService;
+import com.qa.plan.CONSTANTS;
+import com.qa.plan.PlanControllerApplication;
+import com.qa.plan.entities.Plan;
+import com.qa.plan.repository.PlanRepository;
+import com.qa.plan.service.PlanService;
 
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest(classes = PlanApplication.class)
+@SpringBootTest(classes = PlanControllerApplication.class)
 public class PlanServiceTest {
 
 		private static final Long testLong = 1L;
