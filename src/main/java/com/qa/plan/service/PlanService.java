@@ -30,12 +30,7 @@ public class PlanService {
 			return "Date in past!";
 		} else if (plan.getStartDate().after(plan.getEndDate())) {
 			return "End date before start date!";
-//		} else if(!(plan.getMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1) || !(plan.getMonth() <= 12)) {
-//			return "Month not valid!";
-//		} else if(!(plan.getDay() <= YearMonth.of(plan.getYear(), plan.getMonth()).lengthOfMonth() || !(plan.getDay() >= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1))) {
-//			return "Day not valid!";
-		} else
-			return "Valid";
+		} else return "Valid";
 	}
 
 	public String checkAvailible(Plan plan, List<Plan> plans) {
