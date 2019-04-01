@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class Plan {
 	
-
+	@Id
 	private Long Id;
 	
 	private String topic;
