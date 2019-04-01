@@ -39,7 +39,9 @@ public class PlanService {
 		List<Plan> bookedPlans = plans.stream().filter(
 				bookedPlan -> (startDate.before(bookedPlan.getStartDate()) && endDate.after(bookedPlan.getStartDate()))
 						|| (startDate.after(bookedPlan.getStartDate()) && startDate.before(bookedPlan.getEndDate()))
-						|| (startDate.before(bookedPlan.getEndDate()) && endDate.after(bookedPlan.getEndDate())))
+						|| (startDate.before(bookedPlan.getEndDate()) && endDate.after(bookedPlan.getEndDate()))
+						|| (startDate.equals(bookedPlan.getEndDate()))||startDate.equals(bookedPlan.getStartDate())||
+							endDate.equals(bookedPlan.getStartDate())||endDate.equals(bookedPlan.getEndDate()))
 				.collect(Collectors.toList());
 		if ((bookedPlans.stream().map(bookedPlan -> bookedPlan.getRoomNumber()).collect(Collectors.toList())
 				.contains(plan.getRoomNumber()))) {

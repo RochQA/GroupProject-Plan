@@ -25,19 +25,23 @@ public class PlanController {
 	private RestTemplateBuilder rest;
 	private EurekaClient client;
 	
-	public PlanController(PlanService srvc) {
-		this.srvc = srvc;
-	}
+	
 	
 
 	
+	public PlanController(PlanService srvc, RestTemplateBuilder rest, EurekaClient client) {
+		this.srvc = srvc;
+		this.rest = rest;
+		this.client = client;
+	}
+
 	@PostMapping("/checkPlan")
 	public String checkPlan(@RequestBody Plan plan) {
 		return srvc.checkValid(plan, getAllPlans());
 	}
 	
 	private List<Plan> getAllPlans() {
-		return this.rest.build().exchange(client.getNextServerFromEureka("GATEWAY", false).getHomePageUrl()+"getAllAccounts", 
+		return this.rest.build().exchange(client.getNextServerFromEureka("GATEWAY", false).getHomePageUrl()+"getAllPlans", 
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Plan>>(){}).getBody();
 
 	}
