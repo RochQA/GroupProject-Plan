@@ -49,15 +49,15 @@ public class PlanServiceTest {
 		public void setup() {
 			plan2.setEndDate(endDate1);
 			plan2.setStartDate(startDate1);
-			plan2.setRoomNumber(7);
+//			plan2.setRoomNumber(7);
 			plan2.setTrainerName("Jordan Harrison");
 			plan1.setEndDate(endDate2);
 			plan1.setStartDate(startDate2);
-			plan1.setRoomNumber(5);
+//			plan1.setRoomNumber(5);
 			plan1.setTrainerName("Chester Gardner");
 			clashPlan.setEndDate(clashEnd);
 			clashPlan.setStartDate(clashStart);
-			clashPlan.setRoomNumber(6);
+//			clashPlan.setRoomNumber(6);
 			clashPlan.setTrainerName("Jordan Harrison");
 			
 			plans = new ArrayList<Plan>();
@@ -92,7 +92,7 @@ public class PlanServiceTest {
 		
 		@Test
 		public void testCheckAvailable2() {
-			plan1.setRoomNumber(7);
+//			plan1.setRoomNumber(7);
 			assertEquals(svc.checkAvailible(plan1, plans), "Room is already booked for this date");
 		}
 		

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.catalina.authenticator.Constants;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,13 +40,22 @@ public class PlanController {
 	public String checkPlan(@RequestBody Plan plan) {
 		return srvc.checkValid(plan, getAllPlans());
 	}
+	@PostMapping("/checkUpdatePlan")
+	public String checkUpdatePlan(@RequestBody Plan plan) {
+		return srvc.checkUpdatePlan(plan, getPlan(plan.getId()), getAllPlans());
+	}
 	
 	private List<Plan> getAllPlans() {
 		return this.rest.build().exchange(client.getNextServerFromEureka("GATEWAY", false).getHomePageUrl()+"getAllPlans", 
 				HttpMethod.GET, null, new ParameterizedTypeReference<List<Plan>>(){}).getBody();
 
 	}
-	
+	private Plan getPlan(Long planId) {
+		HttpEntity<Long> entity = new HttpEntity<>(planId);
+		return this.rest.build().exchange(client.getNextServerFromEureka("GATEWAY", false).getHomePageUrl()+"getPlan", 
+				HttpMethod.PUT, entity, Plan.class).getBody();
+
+	}
 //	@PostMapping("/updatePlan")
 //	public Plan updatePlan(Long planId, int roomNumber, String traineeGroup, String topic) {
 //		return svc.updatePlan(planId, roomNumber, traineeGroup, topic);

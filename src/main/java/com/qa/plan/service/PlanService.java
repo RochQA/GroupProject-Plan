@@ -53,4 +53,20 @@ public class PlanService {
 		return "Valid";
 	}
 
+	public String checkUpdatePlan(Plan plan, Plan oldPlan, List<Plan> allPlans) {
+		String dateRes = checkDate(plan);
+		if (dateRes.equals("Valid")) {
+			Plan matchingPlan = allPlans.stream()
+					.filter(pln -> oldPlan.getId().equals(pln.getId()))
+					.findFirst()
+					.orElse(new Plan());
+			allPlans.remove(matchingPlan);
+			String planRes = checkAvailible(plan, allPlans);
+			if (planRes.equals("Valid")) {
+				return "Valid";
+			} else return planRes;				
+		} else return dateRes;
+			
+	}
+
 }

@@ -27,7 +27,7 @@ public class PlanTest {
 	@Test
 	public void updatePlan_WithValidInput_ShouldReturnUpdatedInput() {
 //	    CONSTANTS.MOCK_OBJECT.setPlanId(CONSTANTS.TEST_LONG);
-	    CONSTANTS.MOCK_OBJECT.setRoomNumber(CONSTANTS.TEST_INT);
+//	    CONSTANTS.MOCK_OBJECT.setRoomNumber(CONSTANTS.TEST_INT);
 	    CONSTANTS.MOCK_OBJECT.setTraineeGroup(CONSTANTS.TEST_STRING);
 	    CONSTANTS.MOCK_OBJECT.setTopic(CONSTANTS.TEST_STRING);
 //	    CONSTANTS.MOCK_OBJECT.setTrainerId(CONSTANTS.TEST_LONG);
