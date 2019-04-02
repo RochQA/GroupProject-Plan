@@ -13,8 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.qa.plan.CONSTANTS;
 import com.qa.plan.PlanControllerApplication;
 import com.qa.plan.entities.Plan;
-import com.qa.plan.PlanControllerApplication;
-import com.qa.plan.repository.PlanRepository;
+
 
 @SpringBootTest(classes = PlanControllerApplication.class)
 public class PlanTest {

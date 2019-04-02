@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.qa.plan.entities.Constants;
 import com.qa.plan.entities.Plan;
 
 @Service
@@ -14,23 +15,18 @@ public class PlanService {
 
 	public String checkValid(Plan plan, List<Plan> plans) {
 		String dateRes = checkDate(plan);
-		if (dateRes.equals("Valid")) {
-			String planRes = checkAvailible(plan, plans);
-			if (planRes.equals("Valid")) {
-				return "Valid";
-			} else
-				return planRes;
-		} else
-			return dateRes;
+		if (dateRes.equals(Constants.VALID_MESSAGE)) {
+			return checkAvailible(plan, plans);
+		} else return dateRes;
 	}
 
 	public String checkDate(Plan plan) {
 		Date localDate = java.sql.Date.valueOf(LocalDate.now());
 		if (plan.getStartDate().before(localDate)) {
-			return "Date in past!";
+			return Constants.DATE_PAST_MESSAGE;
 		} else if (plan.getStartDate().after(plan.getEndDate())) {
-			return "End date before start date!";
-		} else return "Valid";
+			return Constants.END_BEFORE_START_MESSAGE;
+		} else return (String) Constants.VALID_MESSAGE;
 	}
 
 	public String checkAvailible(Plan plan, List<Plan> plans) {
@@ -45,26 +41,23 @@ public class PlanService {
 				.collect(Collectors.toList());
 		if ((bookedPlans.stream().map(bookedPlan -> bookedPlan.getRoomNumber()).collect(Collectors.toList())
 				.contains(plan.getRoomNumber()))) {
-			return "Room is already booked for this date";
+			return Constants.ROOM_BOOKED;
 		} else if ((bookedPlans.stream().map(bookedPlan -> bookedPlan.getTrainerName()).collect(Collectors.toList())
 				.contains(plan.getTrainerName()))) {
-			return "Trainer is busy on this date";
+			return Constants.TRAINER_BUSY;
 		}
-		return "Valid";
+		return (String) Constants.VALID_MESSAGE;
 	}
 
 	public String checkUpdatePlan(Plan plan, Plan oldPlan, List<Plan> allPlans) {
 		String dateRes = checkDate(plan);
-		if (dateRes.equals("Valid")) {
+		if (dateRes.equals(Constants.VALID_MESSAGE)) {
 			Plan matchingPlan = allPlans.stream()
 					.filter(pln -> oldPlan.getId().equals(pln.getId()))
 					.findFirst()
 					.orElse(new Plan());
 			allPlans.remove(matchingPlan);
-			String planRes = checkAvailible(plan, allPlans);
-			if (planRes.equals("Valid")) {
-				return "Valid";
-			} else return planRes;				
+			return checkAvailible(plan, allPlans);				
 		} else return dateRes;
 			
 	}

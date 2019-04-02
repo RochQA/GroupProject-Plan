@@ -17,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.qa.plan.PlanControllerApplication;
 import com.qa.plan.entities.Plan;
-import com.qa.plan.repository.PlanRepository;
 import com.qa.plan.service.PlanService;
 
 
@@ -39,8 +38,6 @@ public class PlanServiceTest {
 		@InjectMocks
 		PlanService svc;
 
-		@Mock
-		PlanRepository repo;
 		
 		@Mock
 		Plan plan;
