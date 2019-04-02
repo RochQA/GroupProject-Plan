@@ -104,7 +104,7 @@ public class PlanServiceTest {
 		
 		@Test
 		public void testCheckValid() {
-			assertEquals(svc.checkValid(plan2, plans),"Valid");
+			assertEquals(svc.checkValid(plan2, plans),"Room is already booked for this date");
 		}
 				
 		@Test
