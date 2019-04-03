@@ -17,13 +17,13 @@ import com.qa.plan.entities.Plan;
 import com.qa.plan.service.PlanService;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest(classes = PlanControllerApplication.class)
+@SpringBootTest(classes = PlanControllerApplication.class)
 public class PlanControllerApplicationTest {
 	
 	@InjectMocks
 	PlanController con;
 	
-	//Smoke Test
+
 	@Test
 	public void contextLoads() {
 		assertThat(con).isNotNull();
