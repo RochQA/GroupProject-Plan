@@ -6,5 +6,5 @@ COPY . .
 RUN mvn clean package
 
 FROM openjdk:8
-COPY --from=build /build/target/Plan-0.0.1-SNAPSHOT.jar Plan.jar
+COPY --from=build /build/target/TrainerController-0.0.1-SNAPSHOT.jar Plan.jar
 ENTRYPOINT ["java","-jar","Plan.jar"]
